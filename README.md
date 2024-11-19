@@ -23,5 +23,5 @@ This repository contains my personal study notes and examples while learning the
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/C_Study.git
+   git clone git@github.com:Baby-Blowfish/C_Study.git
    cd C_Study
