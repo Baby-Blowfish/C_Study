@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🧪 cppcheck",
+      "type": "shell",
+      "command": "cppcheck",
+      "args": [
+        "--enable=all",
+        "--inconclusive",
+        "--std=c99",
+        "--language=c",
+        "-Iinclude",
+        "-Ithird_party/googletest/include",
+        "src",
+        "include"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "⚙️ make (build)",
+      "type": "shell",
+      "command": "make",
+      "args": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "▶️ make run",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "run"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🕵️ valgrind (bin/test_motor)",
+      "type": "shell",
+      "command": "valgrind",
+      "args": [
+        "--leak-check=full",
+        "./bin/test_motor"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}
