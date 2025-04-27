@@ -1,6 +1,6 @@
 #include <stdio.h>
-void swap(int,int);
-void swapByAddress(int *,int *);
+void swap(int, int);
+void swapByAddress(int *, int *);
 
 int j;
 void f(int i);
@@ -8,73 +8,79 @@ void g(int j);
 void increment(void);
 int main(void)
 {
-    int a = 10; // 지역 변수
-    int b = 20;
-    swap(a,b);
-    printf("main : a = %d, b = %d\n",a,b);
-    swapByAddress(&a,&b);
-    printf("main : a = %d, b = %d\n",a,b);
-    f(a);
-    g(a);
-    printf("main : j = %d\n",j);
-    
-    for(int i = 0; i < 5; i++)
-    {
-      increment();
-    }
+  int a = 10; // 지역 변수
+  int b = 20;
+  swap(a, b);
+  printf("main : a = %d, b = %d\n", a, b);
+  swapByAddress(&a, &b);
+  printf("main : a = %d, b = %d\n", a, b);
+  f(a);
+  g(a);
+  printf("main : j = %d\n", j);
 
-    return 0;
+  for (int i = 0; i < 5; i++)
+  {
+    increment();
+  }
+
+  return 0;
 }
 
-void swap(int a,int b)
+void swap(int a, int b)
 {
-    int temp = a;
-    a = b;
-    b = temp;
-    printf("swap : a = %d, b = %d\n",a,b);
+  int temp = a;
+  a = b;
+  b = temp;
+  printf("swap : a = %d, b = %d\n", a, b);
 }
 
-void swapByAddress(int *a,int *b)
+void swapByAddress(int *a, int *b)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+  int temp = *a;
+  *a = *b;
+  *b = temp;
 }
 
 void f(int i) // i의 블록 범위 시작
 {
-    int j = 1; // j의 블록 범위 시작, 파일 범위에서 선언된 j와 동일한 이름의 변수를 숨김
-    i++;      // i는 함수의 매개변수를 참조함
-    for(int i = 0; i < 2; i++) // i는 함수의 지역 변수를 참조함
-    {
-        int j = 2; // j의 내부 블록 범위 시작, 외부 j를 숨김
-        printf("f : j = %d\n",j); //j = 2 출력 
-    }
-    printf("f : j = %d\n",j); //j = 1 출력
+  int j = 1; // j의 블록 범위 시작, 파일 범위에서 선언된 j와 동일한 이름의 변수를 숨김
+  i++;       // i는 함수의 매개변수를 참조함
+  for (int i = 0; i < 2; i++) // i는 함수의 지역 변수를 참조함
+  {
+    int j = 2;                 // j의 내부 블록 범위 시작, 외부 j를 숨김
+    printf("f : j = %d\n", j); // j = 2 출력
+  }
+  printf("f : j = %d\n", j); // j = 1 출력
 }
 
 void g(int j) // j의 블록 범위 시작
 {
-    j++;
-    printf("g : j = %d\n",j); // 내부 j+1 출력
+  j++;
+  printf("g : j = %d\n", j); // 내부 j+1 출력
 }
 
 void increment(void)
 {
-  static unsigned int counter = 0; // 정적 변수, 프로그램 시작부터 종료까지 메모리에 존재, 초기화 하지 않으면 0으로 초기화, 프로그램 시작시 한번만 초기화 수행, 마지막으로 저장된 값이 유지됨
+  static unsigned int counter =
+      0; // 정적 변수, 프로그램 시작부터 종료까지 메모리에 존재, 초기화 하지 않으면 0으로 초기화,
+         // 프로그램 시작시 한번만 초기화 수행, 마지막으로 저장된 값이 유지됨
   counter++;
-  printf("counter = %d\n",counter);
+  printf("counter = %d\n", counter);
 }
 
-
 /*
-개체(object) : 값을 표현할 수 있는 스토리지(storage), 실행 환경에서 해당 내용이 값을 표현할 수 있는 데이터스토리지의 영역
+개체(object) : 값을 표현할 수 있는 스토리지(storage), 실행 환경에서 해당 내용이 값을 표현할 수 있는
+데이터스토리지의 영역
 
-변수(variable) : 개체중 하나, 개체의 종류를 알려주는 형식(type) 선언 필요→ why  개체를 표현하는 비트 집합이 다른 유형의 개체로 해석되면 다른 값을 가지게 됨
+변수(variable) : 개체중 하나, 개체의 종류를 알려주는 형식(type) 선언 필요→ why  개체를 표현하는 비트
+집합이 다른 유형의 개체로 해석되면 다른 값을 가지게 됨
 
-함수(function) : 개체는 아니지만 형식을 가짐, 함수형(function type) : 반환형(return type) + 함수의 매개변수 개수 + 유형
+함수(function) : 개체는 아니지만 형식을 가짐, 함수형(function type) : 반환형(return type) + 함수의
+매개변수 개수 + 유형
 
-포인터(pointer): 개체나 함수가 저장되는 메모리의 위치를 나타내는 주소(address), 포인터형(pointer type) = 참조형(referenced type)인 함수형과 개체형에서 파생됨, 개체 포인터와 함수 포인터는 다르게 취급
+포인터(pointer): 개체나 함수가 저장되는 메모리의 위치를 나타내는 주소(address), 포인터형(pointer
+type) = 참조형(referenced type)인 함수형과 개체형에서 파생됨, 개체 포인터와 함수 포인터는 다르게
+취급
 
 변수선언 :  object type    identifier    =    initializer;  ,  변수형식 식별자 = 초기값;
 
@@ -82,11 +88,14 @@ void increment(void)
 
 1. 리터럴 상수(literal constant) : 컴파일 시간에 값이 결정되는 상수, 예시 : 10, 3.14, 'A'
 
-2. 상수 식(constant expression) : 컴파일 시간에 값이 결정되는 상수 식, 예시 : 10 + 5, 3.14 * 2, 'A' + 1
+2. 상수 식(constant expression) : 컴파일 시간에 값이 결정되는 상수 식, 예시 : 10 + 5, 3.14 * 2, 'A'
++ 1
 
-3. enum 멤버(enum member) : 열거형(enum)에서 정의된 상수, 예시 : enum { RED, GREEN, BLUE };에서 RED, GREEN, BLUE
+3. enum 멤버(enum member) : 열거형(enum)에서 정의된 상수, 예시 : enum { RED, GREEN, BLUE };에서 RED,
+GREEN, BLUE
 
-4. alignof, sizeof 연산자의 결과 : 컴파일 시간에 값이 결정되는 상수 식, 예시 : sizeof(int), alignof(double)
+4. alignof, sizeof 연산자의 결과 : 컴파일 시간에 값이 결정되는 상수 식, 예시 : sizeof(int),
+alignof(double)
 
 
 
@@ -98,13 +107,17 @@ void increment(void)
 스토리지 기간(storage duration) : 변수가 메모리에 존재하는 기간, 컴파일 시간(compile time)에 결정됨
 ===========================================
 
-정적 스토리지 기간(static storage duration) : 프로그램이 시작되고 종료될 때까지 변수가 메모리에 존재하는 기간, 정적 변수(static variable)
+정적 스토리지 기간(static storage duration) : 프로그램이 시작되고 종료될 때까지 변수가 메모리에
+존재하는 기간, 정적 변수(static variable)
 
-자동 스토리지 기간(automatic storage duration) : 함수가 호출될 때 변수가 메모리에 존재하는 기간, 변수가 정의된 블록 내에서 유효, 자동 변수(automatic variable)
+자동 스토리지 기간(automatic storage duration) : 함수가 호출될 때 변수가 메모리에 존재하는 기간,
+변수가 정의된 블록 내에서 유효, 자동 변수(automatic variable)
 
-스레드 스토리지 기간(thread storage duration) : 스레드가 시작되고 종료될 때까지 변수가 메모리에 존재하는 기간, 스레드 변수(thread variable)
+스레드 스토리지 기간(thread storage duration) : 스레드가 시작되고 종료될 때까지 변수가 메모리에
+존재하는 기간, 스레드 변수(thread variable)
 
-할당 스토리지 기간(allocated storage duration) : 동적으로 할당된 메모리, 할당 변수(allocated variable)
+할당 스토리지 기간(allocated storage duration) : 동적으로 할당된 메모리, 할당 변수(allocated
+variable)
 
 
 
@@ -222,7 +235,7 @@ C 언어에서 변수는 두 가지 기준으로 분류됩니다:
          b = temp;
          printf("함수 내부: a = %d, b = %d\n", a, b);
      }
-     
+
      int main() {
          int x = 10, y = 20;
          printf("함수 호출 전: x = %d, y = %d\n", x, y);
@@ -248,7 +261,7 @@ C 언어에서 변수는 두 가지 기준으로 분류됩니다:
          *b = temp;
          printf("함수 내부: *a = %d, *b = %d\n", *a, *b);
      }
-     
+
      int main() {
          int x = 10, y = 20;
          printf("함수 호출 전: x = %d, y = %d\n", x, y);
@@ -273,7 +286,7 @@ C 언어에서 변수는 두 가지 기준으로 분류됩니다:
          b = temp;
          printf("함수 내부: a = %d, b = %d\n", a, b);
      }
-     
+
      int main() {
          int x = 10, y = 20;
          printf("함수 호출 전: x = %d, y = %d\n", x, y);
@@ -392,6 +405,12 @@ C 언어에서 변수는 두 가지 기준으로 분류됩니다:
    ```
 
 
- 
+===========================================
+스레드 스토리지 기간(thread storage duration) : 스레드가 시작되고 종료될 때까지 변수가 메모리에
+존재하는 기간, 스레드 변수(thread variable)
+===========================================
+
+
+
 
 */
